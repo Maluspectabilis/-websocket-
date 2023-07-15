@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<!--写入xmlns:th使得模板支持thymeleaf语法-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <!--引入layui组件库，包含css和js文件提供组件的样式和动作-->
+    <link rel="stylesheet" th:href="@{/lib/layui-v2.6.3/css/layui.css}" media="all">
+    <title>登录</title>
+    <style>
+
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        .main {
+            margin: 0 auto;
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-top: 15px;
+            width: 350px;
+            height: 350px;
+            background: #FFFFFF;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -175px;
+            margin-left: -175px;
+        }
+
+        .title {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .title span {
+            font-size: 18px;
+            color: #353f42;
+        }
+
+        .title-msg {
+            width: 100%;
+            height: 64px;
+            line-height: 64px;
+        }
+
+        .title:hover{
+            cursor: default	;
+        }
+
+        .title-msg:hover{
+            cursor: default	;
+        }
+
+        .title-msg span {
+            font-size: 12px;
+            color: #707472;
+        }
+
+        .input-content {
+            width: 100%;
+            height: 120px;
+        }
+
+        .input-content input {
+            width: 330px;
+            height: 40px;
+            border: 1px solid #dad9d6;
+            background: #ffffff;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .enter-btn {
+            width: 350px;
+            height: 40px;
+            color: #fff;
+            background: #0bc5de;
+            line-height: 40px;
+            text-align: center;
+            border: 0px;
+        }
+
+        .enter-btn:hover {
+            cursor:pointer;
+            background: #1db5c9;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="main">
+
+    <div class="title">
+        <span>聊天室</span>
+    </div>
+    <div class="title-msg" th:text="${msg}"></div>
+    <form class="login-form" action="/keshe/userLogin" method="post">
+        <div class="input-content">
+            <div><input type="text" name="username" placeholder="用户名" required/></div>
+
+            <div style="margin-top: 16px"><input autocomplete="off" placeholder="登录密码" type="password" name="password" required maxlength="32"/></div>
+        </div>
+
+        <div style="text-align: center">
+            <button class="enter-btn" type="submit" />登录</button>
+        </div>
+        <div style="height: 10px"></div>
+        <!--注冊按钮-->
+    </form>
+
+    <form class="login-form" action="/keshe/registerInit" method="post">
+    <div style="text-align: center">
+        <button type="submit" class="enter-btn" onclick="registerButton()">注册</button>
+    </div>
+    </form>
+</div>
+<!--使得该段script支持thymeleaf语法-->
+<script th:src="@{/lib/layui-v2.6.3/layui.js}"></script>
+<script th:inline="javascript">
+    var verification = [[${verification}]]
+    //这是一段js代码，直接执行layui.use中函数
+    layui.use('layer', function(){
+        var layer = layui.layer;//layui组件库中弹出框提示
+        //js获取跳转该页面时转发的数据
+        if (verification === "false") {//登录失败时跳转到login页面
+            layer.msg('账号或密码不正确');//类似于alert()
+        }
+    });
+
+    //这种是函数，必须调用执行
+    // function registerButton(){
+    //     //注册按钮触发注册函数，改变form表单请求方向，到达register接口
+    //     document.getElementsByClassName("login-form")[0].setAttribute("action","/keshe/registerInit")
+    //     console.log("注册")
+    // }
+
+</script>
+
+</body>
+</html>

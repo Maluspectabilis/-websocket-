@@ -1,0 +1,17 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>注册成功</title>
+</head>
+<body>
+注册成功，请登录
+    <form action="${pageContext.request.contextPath}/keshe/login" method="post">
+        <div>${msg}</div>
+            用户名：<input type="text" name="username"/><br/>
+            密&nbsp;&nbsp;码：
+            <input type="password" name="password" /><br/>
+            <input type="submit" value="登录"/>
+            <a href="${pageContext.request.contextPath}/shiyansi/registerInit">注册</a>
+    </form>
+</body>
+</html>
